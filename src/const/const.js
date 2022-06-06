@@ -39,3 +39,9 @@ export const CITIES = [
     zipCode: '22000'
   }
 ]
+
+export const REGISTRATION_TYPE = {
+  USER: 'User',
+  RESTAURANT: 'Restaurant',
+  COMPANY: 'Company'
+}

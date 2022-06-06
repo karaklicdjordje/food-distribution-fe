@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import UserService from "../../services/user.service";
 const required = (value) => {
   if (!value) {
@@ -17,79 +17,123 @@ const LoginUser = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
   const onChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
   };
+  
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
   };
+  
   const handleLogin = (e) => {
     e.preventDefault();
     setMessage("");
     setLoading(true);
     UserService.login(email, password).then(
-        () => {
-            navigate("/home")
-            window.location.reload()
-        }, 
-        (error) => {
-            const resMessage =
-            (error.response && error.response.data && error.response.data.message) ||
-            error.message || error.toString();
-            setLoading(false);
-            setMessage(resMessage);
-        }
-    )
+      () => {
+        navigate("/home");
+        window.location.reload();
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setLoading(false);
+        setMessage(resMessage);
+      }
+    );
   };
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-        <form onSubmit={handleLogin} ref={form}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              className="form-control"
-              name="email"
-              value={email}
-              onChange={onChangeEmail}
-              validations={[required]}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-              validations={[required]}
-            />
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary btn-block mt-2" disabled={loading}>
-              {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
-              <span>Login</span>
-            </button>
-          </div>
-          {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {message}
+    <div className="font-sans antialiased bg-gray-200 h-screen w-screen">
+      <div className="w-full bg-green fixed shadow z-1">
+        <div className="container mx-auto"></div>
+      </div>
+      <div className="w-full bg-grey-lightest">
+        <div className="container mx-auto py-8">
+          <div className="w-5/6 lg:w-1/2 mx-auto bg-white rounded shadow">
+            <div className="py-4 px-8 text-black text-xl border-b border-grey-lighter">
+              Please login to your account
+            </div>
+            <div className="py-4 px-8">
+              {/* <div className="flex mb-4">
+                <div className="w-1/2 mr-1">
+                  <label
+                    className="block text-grey-darker text-sm font-bold mb-2"
+                    htmlFor="first_name"
+                  >
+                    First Name
+                  </label>
+                  <input
+                    className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                    id="first_name"
+                    type="text"
+                    placeholder="Your first name"
+                  />
+                </div>
+                <div className="w-1/2 ml-1">
+                  <label
+                    className="block text-grey-darker text-sm font-bold mb-2"
+                    htmlFor="last_name"
+                  >
+                    Last Name
+                  </label>
+                  <input
+                    className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                    id="last_name"
+                    type="text"
+                    placeholder="Your last name"
+                  />
+                </div>
+              </div> */}
+              <div className="mb-4">
+                <label
+                  className="block text-grey-darker text-sm font-bold mb-2"
+                  htmlFor="email"
+                >
+                  Email Address
+                </label>
+                <input
+                  className="appearance-none border rounded w-1/2 py-2 px-3 text-grey-darker"
+                  id="email"
+                  type="email"
+                  placeholder="Your email address"
+                  onChange={onChangeEmail}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-grey-darker text-sm font-bold mb-2"
+                  htmlFor="password"
+                >
+                  Password
+                </label>
+                <input
+                  className="appearance-none border rounded w-1/2 py-2 px-3 text-grey-darker"
+                  id="password"
+                  type="password"
+                  placeholder="Your secure password"
+                  onChange={onChangePassword}
+                />
+                <p className="text-grey text-xs mt-1">At least 6 characters</p>
+              </div>
+              <div className="flex mt-8 bg-slate-400 w-1/2 justify-center rounded-md">
+                <button
+                  className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full"
+                  type="submit"
+                  onClick={(e) => handleLogin(e)}
+                >
+                  Login
+                </button>
               </div>
             </div>
-          )}
-        </form>
+          </div>
+        </div>
       </div>
     </div>
   );
