@@ -10,7 +10,7 @@ const Navigation = () => {
       <Nav.Link href="/login">Login</Nav.Link>
       <Nav.Link href="/registration">Registration</Nav.Link>
       <Nav.Link href="/test">Test</Nav.Link>
-      <Nav.Link href="/registration" onClick={() => localStorage.clear()}>Logout</Nav.Link>
+      {localStorage.getItem("token") && <Nav.Link href="/registration" onClick={() => localStorage.clear()}>Logout</Nav.Link>}
     </Nav>
     </Container>
   </Navbar>

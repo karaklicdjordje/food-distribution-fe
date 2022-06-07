@@ -12,6 +12,7 @@ const UserForm = () => {
     surrname: "",
     jmbg: "",
     password: "",
+    role: 'ROLE_PERSON'
   });
   const [address, setAddress] = React.useState('');
   const [city, setCity] = React.useState('');
@@ -28,9 +29,11 @@ const UserForm = () => {
       ...user,
       address: {
         city: {
+          id: 1,
           name: city,
           zipCode: zipCode
         },
+        id: 1,
         street: address,
         addressNumber: addressNum
       }
@@ -79,8 +82,8 @@ const UserForm = () => {
           type="text"
           className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           placeholder="Last name"
-          value={user.surrname}
-          name="surrname"
+          value={user.surname}
+          name="surname"
           onChange={e => onInputChange(e)}
         />
       </div>
