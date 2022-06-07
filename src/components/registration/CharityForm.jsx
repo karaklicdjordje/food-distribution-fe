@@ -1,15 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import AddressForm from "./AddressForm";
 
-const RestaurantForm = () => {
-  let navigate = useNavigate();
-  const [restaurant, setRestaurant] = React.useState({
+const CharityForm = () => {
+  const [charity, setCharity] = React.useState({
     email: "",
     name: "",
-    username: '',
-    pib: "",
-    password: ''
+    username: "",
+    password: "",
   });
   const [address, setAddress] = React.useState("");
   const [city, setCity] = React.useState("");
@@ -18,11 +15,10 @@ const RestaurantForm = () => {
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
-    setRestaurant({ ...restaurant, [name]: value });
+    setCharity({ ...charity, [name]: value });
   };
 
   const handleSubmit = () => {};
-
   return (
     <>
       <div className="mb-6">
@@ -30,7 +26,7 @@ const RestaurantForm = () => {
           type="text"
           className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           placeholder="Email address"
-          value={restaurant.email}
+          value={charity.email}
           name="email"
           onChange={(e) => onInputChange(e)}
         />
@@ -39,8 +35,8 @@ const RestaurantForm = () => {
         <input
           type="text"
           className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          placeholder="Name of restaurant"
-          value={restaurant.name}
+          placeholder="Name"
+          value={charity.name}
           name="name"
           onChange={(e) => onInputChange(e)}
         />
@@ -50,7 +46,7 @@ const RestaurantForm = () => {
           type="text"
           className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           placeholder="Username"
-          value={restaurant.username}
+          value={charity.username}
           name="username"
           onChange={(e) => onInputChange(e)}
         />
@@ -60,18 +56,8 @@ const RestaurantForm = () => {
           type="text"
           className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           placeholder="Password"
-          value={restaurant.password}
+          value={charity.password}
           name="password"
-          onChange={(e) => onInputChange(e)}
-        />
-      </div>
-      <div className="mb-6">
-        <input
-          type="text"
-          className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          placeholder="pib"
-          value={restaurant.pib}
-          name="pib"
           onChange={(e) => onInputChange(e)}
         />
       </div>
@@ -100,4 +86,4 @@ const RestaurantForm = () => {
   );
 };
 
-export default RestaurantForm;
+export default CharityForm;

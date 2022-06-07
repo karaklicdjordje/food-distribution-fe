@@ -43,5 +43,6 @@ export const CITIES = [
 export const REGISTRATION_TYPE = {
   USER: 'User',
   RESTAURANT: 'Restaurant',
-  COMPANY: 'Company'
+  COMPANY: 'Company',
+  CHARITY: 'Charity'
 }

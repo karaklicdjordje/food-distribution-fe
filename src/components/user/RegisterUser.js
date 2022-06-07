@@ -3,6 +3,7 @@ import { REGISTRATION_TYPE } from "../../const/const";
 import UserForm from "../registration/UserForm";
 import RestaurantForm from "../registration/RestaurantForm";
 import CompanyForm from "../registration/CompanyForm";
+import CharityForm from '../registration/CharityForm';
 
 const RegisterUser = () => {
   const [currentType, setCurrentType] = useState(REGISTRATION_TYPE.USER);
@@ -51,6 +52,7 @@ const RegisterUser = () => {
                 <RestaurantForm />
               )}
               {currentType === REGISTRATION_TYPE.COMPANY && <CompanyForm />}
+              {currentType === REGISTRATION_TYPE.CHARITY && <CharityForm />}
             </form>
           </div>
         </div>
