@@ -50,7 +50,7 @@ const LoginUser = () => {
     );
   };
   return (
-    <div className="font-sans antialiased bg-gray-200 h-screen w-screen">
+    <div className="font-sans antialiased h-screen w-screen">
       <div className="w-full bg-green fixed shadow z-1">
         <div className="container mx-auto"></div>
       </div>
