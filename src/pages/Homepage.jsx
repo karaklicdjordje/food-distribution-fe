@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import RestaurantService from "../services/restaurant.service";
 
@@ -92,6 +92,7 @@ const RESTAURANTS = [
 ];
 
 const Homepage = () => {
+  let navigate = useNavigate();
   const [restaurants, setRestaurants] = React.useState([]);
 
   // useEffect(() => {
@@ -167,8 +168,12 @@ const Homepage = () => {
     }
   };
 
+  const seeRestaurant = () => {
+    navigate("/restaurant");
+  }
+
   return (
-    <section className="h-screen bg-gradient-to-b">
+    <section>
       <div className="w-full">
         <div className="container">
           <div className="flex flex-row mt-5 flex-wrap px-4 gap-4">
@@ -206,6 +211,7 @@ const Homepage = () => {
       <div className="w-full">
         <div className="container">
           <div className="flex flex-row mt-5 gap-3 px-4 flex-wrap w-full">
+          
             {restaurants.map((r) => (
               <div
                 className="md:w-1/4 border-gray-300 border-2 rounded-md shadow-lg px-2 flex flex-col justify-between"
@@ -219,10 +225,13 @@ const Homepage = () => {
                   {r?.address?.city?.zipCode}
                 </span>
 
-                <button className="w-full mt-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:shadow-md px-4 border border-blue-500 hover:border-transparent rounded">
+                <button className="w-full animate-bounce mt-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:shadow-md px-4 border border-blue-500 hover:border-transparent rounded">
                   Subscribe
                 </button>
-                <button className="w-full mt-2 mb-1 bg-transparent hover:bg-slate-500 text-slate-700 font-semibold hover:shadow-md px-4 border border-blue-500 hover:border-transparent rounded">
+                <button className="w-full mt-2 mb-1 bg-transparent hover:bg-slate-500
+                 text-slate-700 font-semibold hover:shadow-md px-4 border border-blue-500
+                  hover:border-transparent rounded"
+                  onClick={seeRestaurant}>
                   See More
                 </button>
               </div>

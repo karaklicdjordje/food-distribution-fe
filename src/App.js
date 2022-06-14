@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Homepage from './pages/Homepage';
 import Navigation from './components/navigation/Navigation';
-import Test from './components/Test';
 import RegisterUser from './components/user/RegisterUser';
 import LoginUser from './components/user/LoginUser';
+import Restaurant from './pages/Restaurant';
 
 function App() {
   return (
-    <div className='h-screen w-screen'>
+    <div className='h-screen w-screen bg-gradient-to-br from-blue-50 to-purple-50'>
 
       <Router>
         <Navigation />
@@ -17,7 +17,8 @@ function App() {
           <Route exact path="/registration" element={<RegisterUser />} />
           <Route path="/login" element={<LoginUser />} />
           <Route path="/home" element={<Homepage />} />
-          <Route exact path="/test" element={<Test />} />
+          {/* TODO: Ovde uraditi da u urlu bude sa id-em restoran */}
+          <Route exact path="/restaurant" element={<Restaurant />} />
           <Route path="/" element={<Homepage />} />
 
           
