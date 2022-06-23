@@ -12,8 +12,9 @@ const login = async (email, password) => {
         email,
         password
     });
+    
     if(response.data.accessToken){
-        localStorage.setItem("token", JSON.stringify(response.data));
+        localStorage.setItem("token", JSON.stringify(response.data.accessToken));
     }
     return response.data;
 }

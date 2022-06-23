@@ -1,12 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import UserService from "../../services/user.service";
 import AddressForm from "./AddressForm";
 
 const CharityForm = () => {
+  let navigate = useNavigate();
   const [charity, setCharity] = React.useState({
     email: "",
     name: "",
     username: "",
     password: "",
+    role: "ROLE_CHARITY"
   });
   const [address, setAddress] = React.useState("");
   const [city, setCity] = React.useState("");
@@ -18,7 +22,36 @@ const CharityForm = () => {
     setCharity({ ...charity, [name]: value });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const req = {
+      ...charity,
+      address: {
+        city: {
+          id: 1,
+          name: city,
+          zipCode: zipCode
+        },
+        id: 1,
+        street: address,
+        addressNumber: addressNum
+      }
+    }
+
+    UserService.registerUser(req)
+      .then((response) => {
+        const user = JSON.parse(response.config.data);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        if (response.status === 201) {
+          navigate("/login");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+
   return (
     <>
       <div className="mb-6">

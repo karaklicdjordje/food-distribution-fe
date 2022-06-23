@@ -1,12 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import AddressForm from "./AddressForm";
+import UserService from "../../services/user.service";
 
 const CompanyForm = () => {
+  let navigate = useNavigate();
   const [company, setCompany] = React.useState({
     email: "",
     name: "",
     username: '',
     password: "",
+    role: "ROLE_CORPORATE"
   });
   const [address, setAddress] = React.useState("");
   const [city, setCity] = React.useState("");
@@ -18,7 +22,34 @@ const CompanyForm = () => {
     setCompany({ ...company, [name]: value });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const req = {
+      ...company,
+      address: {
+        city: {
+          id: 1,
+          name: city,
+          zipCode: zipCode
+        },
+        id: 1,
+        street: address,
+        addressNumber: addressNum
+      }
+    }
+
+    UserService.registerUser(req)
+      .then((response) => {
+        const user = JSON.parse(response.config.data);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        if (response.status === 201) {
+          navigate("/login");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
 
   return (
     <>
