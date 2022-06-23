@@ -6,8 +6,6 @@ const Navigation = () => {
   const isLoggedIn = localStorage.getItem("token");
   const currentPath = useCurrentPath();
 
-  console.log(currentPath);
-
   return (
     <nav className="container flex h-20 py-8 mx-auto bg-white shadow-md">
       <div className="flex items-center w-1/3">
