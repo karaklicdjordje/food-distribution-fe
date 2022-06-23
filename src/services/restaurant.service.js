@@ -7,10 +7,14 @@ const getAllRestaurants = () => {
     return axios.get(API_URL, {headers: authHeader() });
 }
 
+const subscribeToRestaurant = (restaurantId, userId) => {
+    return axios.put(API_URL + `${restaurantId}/users/${userId}`, {headers: authHeader()});
+} 
 
 
 const RestaurantService = {
-    getAllRestaurants
+    getAllRestaurants,
+    subscribeToRestaurant
 }
 
 export default RestaurantService;

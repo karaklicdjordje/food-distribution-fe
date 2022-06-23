@@ -4,7 +4,7 @@ import { findRestaurantById } from "../fakeBackend/backend";
 import Offer from "../components/restaurant/Offer";
 import MapWrapper from '../components/restaurant/MapWrapper';
 
-const Restaurant = () => {
+const Restaurant = ({ data }) => {
   const restaurant = findRestaurantById();
 
 

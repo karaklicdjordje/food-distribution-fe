@@ -8,6 +8,9 @@ import RegisterUser from "./components/user/RegisterUser";
 import LoginUser from "./components/user/LoginUser";
 import Restaurant from "./pages/Restaurant";
 import { ProtectedRoute } from "./route-guards/ProtectedRoute";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -15,6 +18,7 @@ function App() {
       <Router>
         <Navigation />
         <Routes>
+          <Route path="/" element={<Homepage />} />
           <Route index path="/registration" element={<RegisterUser />} />
           <Route path="/login" element={<LoginUser />} />
           {/* <Route
@@ -36,6 +40,9 @@ function App() {
           <Route path="/home" element={<Homepage />} />
           {/* TODO: Ovde uraditi da u urlu bude sa id-em restoran */}
           <Route exact path="/restaurant" element={<Restaurant />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/contact" element={<Contact />} />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
       </Router>

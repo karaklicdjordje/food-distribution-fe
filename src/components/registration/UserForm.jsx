@@ -42,7 +42,7 @@ const UserForm = () => {
     UserService.registerUser(req)
       .then((response) => {
         const user = JSON.parse(response.config.data);
-        localStorage.setItem("user", user);
+        localStorage.setItem("user", JSON.stringify(user));
 
         if (response.status === 201) {
           navigate("/login");
@@ -51,8 +51,6 @@ const UserForm = () => {
       .catch((e) => {
         console.error(e);
       });
-
-    console.log(req);
   };
 
   return (
