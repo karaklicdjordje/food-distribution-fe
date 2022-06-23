@@ -1,16 +1,12 @@
 import React from "react";
-import { findRestaurantById } from "../fakeBackend/backend";
+import {useLocation} from 'react-router-dom';
 
 import Offer from "../components/restaurant/Offer";
 import MapWrapper from '../components/restaurant/MapWrapper';
 
-const Restaurant = ({ data }) => {
-  const restaurant = findRestaurantById();
-
-
-  const onChildMouseEnter = () => {}
-
-  const onChildMouseLeave = () => {}
+const Restaurant = () => {
+  const location = useLocation();
+  const restaurant = location.state;
 
   return (
     <div>

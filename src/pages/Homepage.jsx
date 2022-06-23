@@ -19,9 +19,8 @@ const Homepage = () => {
     });
   }, []);
 
-  const seeRestaurant = (r) => {
-    console.log(r);
-    // navigate("/restaurant");
+  const seeRestaurant = (restaurant) => {
+    navigate("/restaurant", { state: restaurant });
   };
 
   const subscribe = (restaurant) => {
