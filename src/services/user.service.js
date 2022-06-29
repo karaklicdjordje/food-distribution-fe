@@ -12,9 +12,10 @@ const login = async (email, password) => {
         email,
         password
     });
-    
+    // const formated = JSON.stringify(response);
     if(response.data.accessToken){
         localStorage.setItem("token", JSON.stringify(response.data.accessToken));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
     }
     return response.data;
 }

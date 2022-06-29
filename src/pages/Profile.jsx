@@ -8,7 +8,6 @@ import CompanyProfile from "../components/profile/CompanyProfile";
 import CharityProfile from "../components/profile/CharityProfile";
 import AdminProfile from "../components/profile/AdminProfile";
 
-//TODO: link with backend when all user informations are available...
 const Profile = () => {
   // decode token to get role
   const user = jwt(localStorage.getItem("token"));

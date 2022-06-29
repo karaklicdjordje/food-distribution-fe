@@ -9,7 +9,7 @@ const getAllRestaurants = () => {
 
 const subscribeToRestaurant = (restaurantId, userId) => {
     return axios.put(API_URL + `${restaurantId}/users/${userId}`, {headers: authHeader()});
-} 
+}
 
 
 const RestaurantService = {
