@@ -8,7 +8,7 @@ const PersonProfile = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   
   React.useEffect(() => {
-    OfferService.getOfferItems().then(
+    OfferService.getOffers().then(
       (resp) => {
         setOfferItems(resp.data);
       },

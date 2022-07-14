@@ -2,7 +2,6 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 import Offer from "../components/restaurant/Offer";
-import MapWrapper from "../components/restaurant/MapWrapper";
 import Slider from "../components/ui/slider/Slider";
 
 const Restaurant = () => {
