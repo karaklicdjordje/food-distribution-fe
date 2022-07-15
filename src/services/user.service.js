@@ -1,6 +1,8 @@
 import axios from "axios";
+import authHeader from "./auth.header";
 
 const API_URL = "http://localhost:8080/api/v1/fooddistribution/auth/";
+const USER_URL = "http://localhost:8080/api/v1/fooddistribution/users/";
 
 const registerUser = (data) => {
     return axios.post(API_URL + "signup", data);
@@ -20,9 +22,14 @@ const login = async (email, password) => {
     return response.data;
 }
 
+const getSubscribedRestaurants = (userId) => {
+    return axios.get(USER_URL + `${userId}/subscribe`, {headers: authHeader()});
+}
+
 const UserService = {
     registerUser,
-    login
+    login,
+    getSubscribedRestaurants,
 }
 
 export default UserService;

@@ -1,12 +1,24 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
+import OfferService from "../services/offer.service";
 import Offer from "../components/restaurant/Offer";
 import Slider from "../components/ui/slider/Slider";
 
 const Restaurant = () => {
+  const [offers, setOffers] = React.useState([]);
   const location = useLocation();
   const restaurant = location.state;
+
+  React.useEffect(() => {
+    // get offers of this restaurant
+    OfferService.getOffersOfRestaurant(restaurant.id).then(
+      (resp) => {
+        setOffers(resp.data);
+      },
+      (err) => console.error(err)
+    );
+  }, []);
 
   return (
     <div>
@@ -20,8 +32,10 @@ const Restaurant = () => {
           <div className="flex sm:flex-row flex-column  w-1/3 h-auto p-2 border-gray-300 border-2 rounded-md shadow-lg">
             <span className="text-xl">Offers</span>
             <hr />
-            <span>ovde je offer taj</span>
-            {/* <Offer offer={offer} /> */}
+            {offers.length > 0 &&
+              offers.map((offer) => {
+                return <Offer offer={offer} removeEnabled={false} />;
+              })}
           </div>
           <div className="flex sm:flex-row flex-column  w-1/3 h-auto p-2 border-gray-300 border-2 rounded-md shadow-lg">
             <span className="text-xl">Restaurant Info</span>

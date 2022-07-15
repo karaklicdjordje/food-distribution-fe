@@ -12,6 +12,10 @@ const getOffers = () => {
   return axios.get(OFFER_API_URL, {headers: authHeader()});
 }
 
+const getOffersOfRestaurant = (id) => {
+  return axios.get(OFFER_API_URL + 'findbyrestaurant/' + id, {headers: authHeader()});
+}
+
 const deleteOffer = (id) => {
   return axios.delete(OFFER_API_URL + `${id}`, {headers: authHeader()});
 }
@@ -23,8 +27,9 @@ const createNewOffer = (data) => {
 const OfferService = {
   getOfferItems,
   getOffers,
+  getOffersOfRestaurant,
   deleteOffer,
-  createNewOffer
+  createNewOffer,
 };
 
 export default OfferService;

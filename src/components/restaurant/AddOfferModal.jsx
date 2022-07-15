@@ -1,5 +1,7 @@
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import authHeader from "../../services/auth.header";
 
 import OfferService from "../../services/offer.service";
 
@@ -16,34 +18,40 @@ const AddOfferModal = ({ setAddOfferModal }) => {
     const fields = { fields: data };
     const food = { ...fields.fields };
 
-    const newOffer = {
-      restaurantId: user.id,
-      offerItems: [
-        {
-          food: {
-            id: 2,
-            name: food.foodName,
-            price: food.price,
-            typeOfFood: food.foodType,
-          },
-          quantity: 1,
-          offerId: 0,
-        },
-      ],
-      date: new Date().toISOString().split('T')[0],
-      expired: false,
-    };
-
     //TODO
     // first create food then put that food in offerItem
+    const foodReq = {
+      name: food.foodName,
+      price: food.price,
+      typeOfFood: food.foodType,
+    };
+    axios
+      .post("http://localhost:8080/api/v1/fooddistribution/food/", foodReq, {
+        headers: authHeader(),
+      })
+      .then(
+        (foodResponse) => {
+          const newOffer = {
+            restaurantId: user.id,
+            offerItems: [
+              {
+                food: foodResponse.data
+              },
+            ],
+            date: new Date().toISOString().split("T")[0],
+            expired: false,
+          };
+          OfferService.createNewOffer(newOffer).then(
+            (resp) => {
+              console.log(resp);
+            },
+            (err) => console.error(err)
+          );
+        },
+        (err) => console.error(err)
+      );
 
-    OfferService.createNewOffer(newOffer).then(
-      (resp) => {
-        console.log(resp);
-      },
-      (err) => console.error(err)
-    );
-    console.log(newOffer);
+    // console.log(newOffer);
   };
 
   return (

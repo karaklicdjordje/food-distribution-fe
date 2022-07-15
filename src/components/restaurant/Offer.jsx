@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../ui/button/Button";
 import OfferService from "../../services/offer.service";
 
-const Offer = ({ offer }) => {
+const Offer = ({ offer, removeEnabled }) => {
   function handleDeleteOffer(offerId) {
     OfferService.deleteOffer(offerId).then(
       (resp) => {
@@ -30,11 +30,13 @@ const Offer = ({ offer }) => {
         </ul>
       </div>
 
-      <Button
-        textColor={"ee3030"}
-        text="Remove this offer"
-        onClick={() => handleDeleteOffer(offer.id)}
-      />
+      {removeEnabled && (
+        <Button
+          textColor={"ee3030"}
+          text="Remove this offer"
+          onClick={() => handleDeleteOffer(offer.id)}
+        />
+      )}
     </div>
   );
 };
