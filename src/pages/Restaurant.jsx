@@ -20,7 +20,8 @@ const Restaurant = () => {
           <div className="flex sm:flex-row flex-column  w-1/3 h-auto p-2 border-gray-300 border-2 rounded-md shadow-lg">
             <span className="text-xl">Offers</span>
             <hr />
-            <Offer />
+            <span>ovde je offer taj</span>
+            {/* <Offer offer={offer} /> */}
           </div>
           <div className="flex sm:flex-row flex-column  w-1/3 h-auto p-2 border-gray-300 border-2 rounded-md shadow-lg">
             <span className="text-xl">Restaurant Info</span>

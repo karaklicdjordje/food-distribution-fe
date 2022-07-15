@@ -20,7 +20,7 @@ const Profile = () => {
         {user.roles === ROLES.ROLE_RESTAURANT && <RestaurantProfile />}
         {user.roles === ROLES.ROLE_CORPORATE && <CompanyProfile />}
         {user.roles === ROLES.ROLE_CHARITY && <CharityProfile />}
-        {user.roles === ROLES.ROLE_ADMIN && <AdminProfile />}
+        {user.roles === ROLES.ROLE_ADMINISTRATOR && <AdminProfile />}
       </div>
     </section>
   );
