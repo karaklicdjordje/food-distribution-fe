@@ -1,6 +1,7 @@
 import React from "react";
 
 import useCurrentPath from "../../hooks/useCurrentPath";
+import ShoppingCart from "../shopping-cart/ShoppingCart";
 
 const Navigation = () => {
   const isLoggedIn = localStorage.getItem("token");
@@ -37,11 +38,10 @@ const Navigation = () => {
           >
             Profile
           </a>
-          
         </div>
       )}
 
-      <div className="items-center space-x-8 mr-10">
+      <div className="items-center space-x-10 flex flex-row mr-10">
         {!isLoggedIn && (
           <>
             <a href="/login">Login</a>
@@ -50,9 +50,16 @@ const Navigation = () => {
         )}
 
         {isLoggedIn && (
-          <a href="/registration" onClick={() => localStorage.clear()}>
-            Logout
-          </a>
+          <div className="flex flex-row">
+            <a href="/checkout" className="flex flex-row">
+              <span>Checkout</span>
+              <ShoppingCart />
+            </a>
+            <div className="w-5"></div>
+            <a href="/registration" onClick={() => localStorage.clear()}>
+              Logout
+            </a>
+          </div>
         )}
       </div>
     </nav>

@@ -24,13 +24,7 @@ const Card = ({ title, data, isEditable }) => {
       {data?.role === "ROLE_PERSON" && (
         <ul className="p-2">
           <li className="flex flex-row gap-3">
-            Username
-            <input
-              name="username"
-              id="username"
-              className="h-5"
-              value={data.username}
-            />
+            Username: {data.username}
           </li>
           <li>Name: {data.name}</li>
           <li>Surrname: {data.surname}</li>
@@ -43,11 +37,11 @@ const Card = ({ title, data, isEditable }) => {
         </ul>
       )}
 
-      {isEditable ? (
+      {/* {isEditable ? (
         <Button text="Save changes" onClick={handleSave} />
       ) : (
         <DisabledButton text="Save changes" />
-      )}
+      )} */}
     </div>
   );
 };

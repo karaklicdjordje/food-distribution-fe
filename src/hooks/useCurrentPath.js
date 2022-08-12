@@ -9,6 +9,7 @@ const routes = [
   { path: "profile" },
   { path: "about" },
   { path: "contact" },
+  { path: "checkout"}
 ];
 
 const useCurrentPath = () => {

@@ -10,6 +10,7 @@ import Restaurant from "./pages/Restaurant";
 import { ProtectedRoute } from "./route-guards/ProtectedRoute";
 
 import Profile from "./pages/Profile";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -40,7 +41,8 @@ function App() {
           {/* TODO: Ovde uraditi da u urlu bude sa id-em restoran */}
           <Route exact path="/restaurant" element={<Restaurant />} />
           <Route exact path="/profile" element={<Profile />} />
-          
+          <Route exact path="/checkout" element={<Checkout />} />
+
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
       </Router>
