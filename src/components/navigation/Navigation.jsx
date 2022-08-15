@@ -51,11 +51,6 @@ const Navigation = () => {
 
         {isLoggedIn && (
           <div className="flex flex-row">
-            <a href="/checkout" className="flex flex-row">
-              <span>Checkout</span>
-              <ShoppingCart />
-            </a>
-            <div className="w-5"></div>
             <a href="/registration" onClick={() => localStorage.clear()}>
               Logout
             </a>

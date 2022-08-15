@@ -4,9 +4,12 @@ import { useLocation } from "react-router-dom";
 import OfferService from "../services/offer.service";
 import Offer from "../components/restaurant/Offer";
 import Slider from "../components/ui/slider/Slider";
+import OrderModal from "../components/order/OrderModal";
 
 const Restaurant = () => {
   const [offers, setOffers] = React.useState([]);
+  const [orderModal, setOrderModal] = React.useState(false);
+
   const location = useLocation();
   const restaurant = location.state;
 
@@ -22,6 +25,7 @@ const Restaurant = () => {
 
   return (
     <div>
+      {orderModal && <OrderModal setOrderModal={setOrderModal} />}
       <div className="flex flex-column justify-center text-center">
         <h3 className="text-5xl font-normal leading-normal mt-0 mb-2">
           {restaurant.name}
@@ -34,7 +38,9 @@ const Restaurant = () => {
             <hr />
             {offers.length > 0 ? (
               offers.map((offer) => {
-                return <Offer key={offer.id} offer={offer} removeEnabled={false} />;
+                return (
+                  <Offer key={offer.id} offer={offer} removeEnabled={false} />
+                );
               })
             ) : (
               <span>No offers yet!</span>
@@ -52,6 +58,15 @@ const Restaurant = () => {
             </span>
             <span>PIB: {restaurant.pib}</span>
           </div>
+        </div>
+
+        <div className="w-full p-5">
+          <button
+            className="w-full cursor-pointer bg-slate-700 text-center text-lg text-white shadow-md rounded-md h-10"
+            onClick={() => setOrderModal(true)}
+          >
+            Submit order
+          </button>
         </div>
 
         <Slider />

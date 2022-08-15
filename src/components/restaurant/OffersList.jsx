@@ -13,7 +13,6 @@ const OffersList = () => {
   useEffect(() => {
     OfferService.getOffersOfRestaurant(user.id).then(
       (resp) => {
-        console.log(resp.data);
         setOffers(resp.data);
       },
       (err) => {

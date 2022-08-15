@@ -7,7 +7,6 @@ const ListOfSubscribers = () => {
   useEffect(() => {
     RestaurantService.getSubscribers(user.id).then(
       (resp) => {
-        console.log(resp);
         const filteredData = resp.data.filter(
           (value, index, self) =>
             self.findIndex((v) => v.id === value.id) === index

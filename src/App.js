@@ -1,6 +1,7 @@
 import "./App.css";
 import { React } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { createBrowserHistory } from 'history'
 
 import Homepage from "./pages/Homepage";
 import Navigation from "./components/navigation/Navigation";
@@ -13,9 +14,10 @@ import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout";
 
 function App() {
+  const browserHistory = createBrowserHistory();
   return (
     <div className="h-screen w-screen bg-gradient-to-br from-blue-50 to-purple-50">
-      <Router>
+      <Router history={browserHistory}>
         <Navigation />
         <Routes>
           <Route path="/" element={<Homepage />} />

@@ -5,8 +5,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+// shoppingCartContext is not goint to be used right now
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+// localStorage.setItem("selectedOffers", JSON.stringify([]));
+root.render(
+    <App />
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

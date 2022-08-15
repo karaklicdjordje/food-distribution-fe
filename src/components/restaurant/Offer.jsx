@@ -6,8 +6,7 @@ import OfferService from "../../services/offer.service";
 import { ReactComponent as ShoppingIcon } from "../../assets/shopping-cart.svg";
 import "react-toastify/dist/ReactToastify.css";
 
-const Offer = ({ offer, selectedOffers, removeEnabled }) => {
-
+const Offer = ({ offer, removeEnabled }) => {
   function handleDeleteOffer(offerId) {
     OfferService.deleteOffer(offerId).then(
       (resp) => {
@@ -27,10 +26,23 @@ const Offer = ({ offer, selectedOffers, removeEnabled }) => {
       draggable: true,
       progress: undefined,
     });
-    
-    const selectedOffers = JSON.parse(localStorage['selectedOffers']);
-    selectedOffers.push(offer);
-    localStorage['selectedOffers'] = JSON.stringify(selectedOffers)
+
+    let offers = localStorage.getItem("selectedOffers");
+
+    if (offers === null) {
+      localStorage.setItem("selectedOffers", JSON.stringify([]));
+    }
+
+    if (offers === null) {
+      offers = localStorage.getItem("selectedOffers");
+      const parsedOffers = JSON.parse(offers);
+      parsedOffers.push(offer);
+      localStorage.setItem("selectedOffers", JSON.stringify(parsedOffers));
+    } else {
+      const parsedOffers = JSON.parse(offers);
+      parsedOffers.push(offer);
+      localStorage.setItem("selectedOffers", JSON.stringify(parsedOffers));
+    }
   };
 
   return (
