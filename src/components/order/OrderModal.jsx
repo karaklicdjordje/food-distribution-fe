@@ -1,13 +1,47 @@
 import React from "react";
 import { ReactComponent as XIcon } from "../../assets/XIcon.svg";
 
-import { createOrder } from "../../services/restaurant.service";
+import restaurantService from "../../services/restaurant.service";
 
 const OrderModal = ({ setOrderModal }) => {
   const parsedOrder = JSON.parse(localStorage.getItem("selectedOffers"));
+  // console.log(parsedOrder);
 
   const handleOrder = () => {
-      //TODO:
+    const orderItems = [];
+    let orderDate;
+    let restaurantId;
+    // console.log(parsedOrder);
+    parsedOrder.map((item) => {
+      orderItems.push({
+        // id: 0, // djole ovo ne moze ovako sa id-evima
+        offerItemId: item.offerItems[0].id,
+        quantity: item.offerItems[0].quantity,
+        orderId: 0,
+        price: item.offerItems[0].food.price,
+      });
+
+      // orderDate = new Date(item.date).toISOString().split("T")[0];
+      orderDate = '2022-08-18T20:48:42.164Z';
+      restaurantId = item.restaurantId;
+    });
+
+    const req = {
+      // id: 0, // greska
+      userId: JSON.parse(localStorage.getItem("user")).id,
+      orderItems: orderItems,
+      orderDateTime: orderDate,
+      orderStatus: "ORDERED",
+      totalPrice: 0,
+      restaurantId: restaurantId,
+    };
+
+    console.log(req);
+    restaurantService.createOrder(req).then((resp) => {
+      if (resp.status === 201) {
+        alert('Order created!')
+      }
+    });
   };
 
   return (
