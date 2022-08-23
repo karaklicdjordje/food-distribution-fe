@@ -10,9 +10,25 @@ const Offer = ({ offer, removeEnabled }) => {
   function handleDeleteOffer(offerId) {
     OfferService.deleteOffer(offerId).then(
       (resp) => {
-        console.log(resp);
+        toast("Offer deleted", {
+          position: "top-left",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       },
-      (err) => console.error(err)
+      (err) => toast.error(err, {
+        position: "top-left",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     );
   }
 

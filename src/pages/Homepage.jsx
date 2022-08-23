@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 import RestaurantService from "../services/restaurant.service";
 
@@ -33,13 +36,23 @@ const Homepage = () => {
         }, 2000);
       },
       (err) => {
-        console.log(err);
+        toast.error(err, {
+          position: "top-left",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     );
   };
 
   return (
     <section>
+      <ToastContainer />
+
       <div className="w-full">
         <div className="container">
           <div className="flex flex-row mt-5 flex-wrap px-4 gap-4">

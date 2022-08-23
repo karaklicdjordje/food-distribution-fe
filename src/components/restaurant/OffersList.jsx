@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 import Offer from "./Offer";
 import OfferService from "../../services/offer.service";
@@ -16,13 +19,23 @@ const OffersList = () => {
         setOffers(resp.data);
       },
       (err) => {
-        console.log(err);
+        toast.error(err, {
+          position: "top-left",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     );
   }, []);
 
   return (
     <div className="flex flex-col w-1/4 h-1/2 border-gray-300 border-2 rounded-md shadow-lg px-2 overflow-y-scroll">
+      <ToastContainer />
+
       <span className="text-2xl text-center">Offers</span>
 
       <hr />

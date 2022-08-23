@@ -5,6 +5,9 @@ import OfferService from "../services/offer.service";
 import Offer from "../components/restaurant/Offer";
 import Slider from "../components/ui/slider/Slider";
 import OrderModal from "../components/order/OrderModal";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const Restaurant = () => {
   const [offers, setOffers] = React.useState([]);
@@ -19,12 +22,39 @@ const Restaurant = () => {
       (resp) => {
         setOffers(resp.data);
       },
-      (err) => console.error(err)
+      (err) =>
+        toast.error(err, {
+          position: "top-left",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
     );
   }, []);
 
+  const handleOrderModal = () => {
+    if (JSON.parse(localStorage.getItem("selectedOffers")) === null) {
+      toast.error("There is no selected offers!", {
+        position: "top-left",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      setOrderModal(true);
+    }
+  };
+
   return (
     <div>
+      <ToastContainer />
+
       {orderModal && <OrderModal setOrderModal={setOrderModal} />}
       <div className="flex flex-column justify-center text-center">
         <h3 className="text-5xl font-normal leading-normal mt-0 mb-2">
@@ -63,19 +93,13 @@ const Restaurant = () => {
         <div className="w-full p-5">
           <button
             className="w-full cursor-pointer bg-slate-700 text-center text-lg text-white shadow-md rounded-md h-10"
-            onClick={() => setOrderModal(true)}
+            onClick={() => handleOrderModal()}
           >
             Submit order
           </button>
         </div>
 
         <Slider />
-
-        {/* <div className="flex flex-row justify-center w-full fixed h-1/3 inset-x-0 bottom-2">
-          <div className="flex flex-column p-2 border-gray-300 border-2 rounded-md shadow-lg">
-            <MapWrapper />
-          </div>
-        </div> */}
       </div>
     </div>
   );
