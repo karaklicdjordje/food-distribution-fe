@@ -3,10 +3,14 @@ import { ToastContainer, toast } from "react-toastify";
 
 import Button from "../ui/button/Button";
 import OfferService from "../../services/offer.service";
+import useCurrentUser from "../../hooks/useCurrentUser";
 import { ReactComponent as ShoppingIcon } from "../../assets/shopping-cart.svg";
 import "react-toastify/dist/ReactToastify.css";
+import { ROLES } from "../../const/const";
 
 const Offer = ({ offer, removeEnabled }) => {
+  const currentUser = useCurrentUser();
+  
   function handleDeleteOffer(offerId) {
     OfferService.deleteOffer(offerId).then(
       (resp) => {
@@ -20,15 +24,16 @@ const Offer = ({ offer, removeEnabled }) => {
           progress: undefined,
         });
       },
-      (err) => toast.error(err, {
-        position: "top-left",
-        autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
+      (err) =>
+        toast.error(err, {
+          position: "top-left",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
     );
   }
 
@@ -64,10 +69,13 @@ const Offer = ({ offer, removeEnabled }) => {
   return (
     <div className="flex flex-col m-2 p-2 rounded-md border-2">
       <ToastContainer />
-      <div className="flex flex-row justify-between">
-        <span>Date: {offer.date}</span>
-        <ShoppingIcon className="cursor-pointer" onClick={AddToOrder} />
-      </div>
+      {currentUser.role !== ROLES.ROLE_RESTAURANT && (
+          <div className="flex flex-row justify-between">
+            <span>Date: {offer.date}</span>
+            <ShoppingIcon className="cursor-pointer" onClick={AddToOrder} />
+          </div>
+        )}
+
       <span>Expired: {offer.expired ? "Yes" : "No"}</span>
       <div className="mb-2">
         Items:

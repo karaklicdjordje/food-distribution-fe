@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import useCurrentUser from "../../hooks/useCurrentUser";
 import authHeader from "../../services/auth.header";
 
 import OfferService from "../../services/offer.service";
@@ -12,7 +13,7 @@ const AddOfferModal = ({ setAddOfferModal }) => {
     formState: { errors },
   } = useForm();
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useCurrentUser();
 
   const onSubmit = async (data) => {
     const fields = { fields: data };

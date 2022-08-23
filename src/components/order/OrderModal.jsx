@@ -14,10 +14,9 @@ const OrderModal = ({ setOrderModal }) => {
     // console.log(parsedOrder);
     parsedOrder.map((item) => {
       orderItems.push({
-        // id: 0, // djole ovo ne moze ovako sa id-evima
         offerItemId: item.offerItems[0].id,
         quantity: item.offerItems[0].quantity,
-        orderId: 0,
+        // orderId: 0,
         price: item.offerItems[0].food.price,
       });
 
@@ -27,7 +26,6 @@ const OrderModal = ({ setOrderModal }) => {
     });
 
     const req = {
-      // id: 0, // greska
       userId: JSON.parse(localStorage.getItem("user")).id,
       orderItems: orderItems,
       orderDateTime: orderDate,

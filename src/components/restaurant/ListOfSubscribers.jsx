@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import useCurrentUser from "../../hooks/useCurrentUser";
 import RestaurantService from "../../services/restaurant.service";
 
 const ListOfSubscribers = () => {
   const [users, setUsers] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useCurrentUser();
+  
   useEffect(() => {
     RestaurantService.getSubscribers(user.id).then(
       (resp) => {

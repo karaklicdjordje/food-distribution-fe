@@ -5,12 +5,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Card from "../ui/cards/Card";
 import OfferService from "../../services/offer.service";
 import UserService from "../../services/user.service";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
 const PersonProfile = () => {
   const [offerItems, setOfferItems] = React.useState([]);
   const [myOrders, setMyOrders] = React.useState([]);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useCurrentUser();
 
   React.useEffect(() => {
     OfferService.getOffers().then(
@@ -79,7 +80,7 @@ const PersonProfile = () => {
 
 const SubscribedRestaurants = () => {
   const [restaurants, setRestaurants] = React.useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useCurrentUser();
 
   React.useEffect(() => {
     UserService.getSubscribedRestaurants(user.id).then((resp) => {

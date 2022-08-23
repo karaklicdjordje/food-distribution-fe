@@ -7,11 +7,12 @@ import Offer from "./Offer";
 import OfferService from "../../services/offer.service";
 import Plus from "../ui/icons/Plus";
 import AddOfferModal from "./AddOfferModal";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
 const OffersList = () => {
   const [offers, setOffers] = useState([]);
   const [addOfferModal, setAddOfferModal] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useCurrentUser();
 
   useEffect(() => {
     OfferService.getOffersOfRestaurant(user.id).then(

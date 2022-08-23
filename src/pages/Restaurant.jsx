@@ -5,9 +5,11 @@ import OfferService from "../services/offer.service";
 import Offer from "../components/restaurant/Offer";
 import Slider from "../components/ui/slider/Slider";
 import OrderModal from "../components/order/OrderModal";
+import useCurrentUser from '../hooks/useCurrentUser';
 import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { ROLES } from "../const/const";
 
 const Restaurant = () => {
   const [offers, setOffers] = React.useState([]);
@@ -15,6 +17,7 @@ const Restaurant = () => {
 
   const location = useLocation();
   const restaurant = location.state;
+  const currentUser = useCurrentUser();
 
   React.useEffect(() => {
     // get offers of this restaurant
@@ -90,14 +93,16 @@ const Restaurant = () => {
           </div>
         </div>
 
-        <div className="w-full p-5">
-          <button
-            className="w-full cursor-pointer bg-slate-700 text-center text-lg text-white shadow-md rounded-md h-10"
-            onClick={() => handleOrderModal()}
-          >
-            Submit order
-          </button>
-        </div>
+        {currentUser.role !== ROLES.ROLE_RESTAURANT && (
+          <div className="w-full p-5">
+            <button
+              className="w-full cursor-pointer bg-slate-700 text-center text-lg text-white shadow-md rounded-md h-10"
+              onClick={() => handleOrderModal()}
+            >
+              Submit order
+            </button>
+          </div>
+        )}
 
         <Slider />
       </div>
