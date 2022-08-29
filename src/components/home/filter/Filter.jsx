@@ -1,67 +1,62 @@
 import React from "react";
+import RestaurantService from "../../../services/restaurant.service";
 
 const Filter = ({ restaurants, setRestaurants }) => {
+  const resetFilter = () => {
+    RestaurantService.getAllRestaurants().then((resp) => {
+      setRestaurants(resp.data);
+    });
+  };
+
   const filterByCity = (e) => {
     const searchTerm = e.target.value;
 
     if (searchTerm !== "") {
-      const filteredRestaurants = restaurants.filter(
-        (x) =>
-          x?.address?.city?.name
-            .toLowerCase()
-            .indexOf(searchTerm.toLowerCase()) > -1
-      );
-      setRestaurants(filteredRestaurants);
-    }
-
-    if (searchTerm === "") {
-      setRestaurants(restaurants);
-    }
+      setRestaurants((prevState) => {
+        return prevState.filter(
+          (x) =>
+            x?.address.city.name
+              .toLowerCase()
+              .indexOf(searchTerm.toLowerCase()) > -1
+        );
+      });
+    } else resetFilter();
   };
 
   const filterByName = (e) => {
     const searchTerm = e.target.value;
 
     if (searchTerm !== "") {
-      const filteredRestaurants = restaurants.filter(
-        (x) => x?.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
-      );
-      setRestaurants(filteredRestaurants);
-    }
-
-    if (searchTerm === "") {
-      setRestaurants(restaurants);
-    }
+      setRestaurants((prevState) => {
+        return prevState.filter(
+          (x) => x?.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+        );
+      });
+    } else resetFilter();
   };
 
   const filterByEmail = (e) => {
     const searchTerm = e.target.value;
 
     if (searchTerm !== "") {
-      const filteredRestaurants = restaurants.filter(
-        (x) => x?.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
-      );
-      setRestaurants(filteredRestaurants);
-    }
-
-    if (searchTerm === "") {
-      setRestaurants(restaurants);
-    }
+      setRestaurants((prevState) => {
+        return prevState.filter(
+          (x) => x?.email.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+        );
+      });
+    } else resetFilter();
   };
 
   const filterByPIB = (e) => {
     const searchTerm = e.target.value;
 
     if (searchTerm !== "") {
-      const filteredRestaurants = restaurants.filter(
-        (x) => x?.pib.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
-      );
-      setRestaurants(filteredRestaurants);
-    }
-
-    if (searchTerm === "") {
-      setRestaurants(restaurants);
-    }
+      setRestaurants((prevState) => {
+        return prevState.filter(
+          (x) => x?.pib.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+        );
+      });
+    } else resetFilter();
   };
 
   return (

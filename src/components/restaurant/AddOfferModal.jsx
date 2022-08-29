@@ -19,8 +19,6 @@ const AddOfferModal = ({ setAddOfferModal }) => {
     const fields = { fields: data };
     const food = { ...fields.fields };
 
-    //TODO
-    // first create food then put that food in offerItem
     const foodReq = {
       name: food.foodName,
       price: food.price,
@@ -36,7 +34,8 @@ const AddOfferModal = ({ setAddOfferModal }) => {
             restaurantId: user.id,
             offerItems: [
               {
-                food: foodResponse.data
+                food: foodResponse.data,
+                quantity: 5
               },
             ],
             date: new Date().toISOString().split("T")[0],
@@ -51,8 +50,6 @@ const AddOfferModal = ({ setAddOfferModal }) => {
         },
         (err) => console.error(err)
       );
-
-    // console.log(newOffer);
   };
 
   return (
@@ -86,11 +83,7 @@ const AddOfferModal = ({ setAddOfferModal }) => {
                   required: "Please enter food name",
                 })}
               />
-              {errors.title && (
-                <div className="mb-3 text-normal text-red-500">
-                  {errors.title.message}
-                </div>
-              )}
+              
 
               <label className="text-gray-600 font-medium block mt-4">
                 Price
@@ -104,11 +97,20 @@ const AddOfferModal = ({ setAddOfferModal }) => {
                   required: "Please enter price",
                 })}
               />
-              {errors.location && (
-                <div className="mb-3 text-normal text-red-500 ">
-                  {errors.location.message}
-                </div>
-              )}
+             
+
+              <label className='text-gray-600 font-medium block mt-4'>
+                Quantity
+              </label>
+              <input
+                className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
+                name="quantity"
+                type="number"
+                placeholder="Quantity"
+                {...register("quantity", {
+                  required: "Please enter quantity",
+                })}
+              />
 
               <label className="text-gray-600 font-medium block mt-4">
                 Type of food
@@ -123,12 +125,7 @@ const AddOfferModal = ({ setAddOfferModal }) => {
                 <option value="ITALIAN">ITALIAN</option>
                 <option value="ASIAN">ASIAN</option>
               </select>
-              {errors.location && (
-                <div className="mb-3 text-normal text-red-500 ">
-                  {errors.location.message}
-                </div>
-              )}
-
+              
               <button
                 className="mt-4 w-full bg-green-400 hover:bg-green-600 text-green-100 border py-3 px-6 font-semibold text-md rounded"
                 type="submit"
