@@ -66,7 +66,7 @@ const Restaurant = () => {
       </div>
       <div className="flex flex-column mx-10">
         <div className="flex sm:flex-wrap flex-row  justify-between">
-          <div className="flex sm:flex-row flex-column  w-1/3 h-auto p-2 border-gray-300 border-2 rounded-md shadow-lg">
+          <div className="flex sm:flex-row flex-column w-1/3 h-80 overflow-auto p-2 border-gray-300 border-2 rounded-md shadow-lg">
             <span className="text-xl">Offers</span>
             <hr />
             {offers.length > 0 ? (

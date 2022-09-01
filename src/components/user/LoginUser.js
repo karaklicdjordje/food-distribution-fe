@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import UserService from "../../services/user.service";
 const required = (value) => {
   if (!value) {
@@ -46,11 +47,13 @@ const LoginUser = () => {
           error.toString();
         setLoading(false);
         setMessage(resMessage);
+        toast.error(resMessage);
       }
     );
   };
   return (
     <div className="font-sans antialiased h-screen w-screen">
+      <ToastContainer />
       <div className="w-full bg-green fixed shadow z-1">
         <div className="container mx-auto"></div>
       </div>
@@ -91,11 +94,11 @@ const LoginUser = () => {
                   placeholder="Your secure password"
                   onChange={onChangePassword}
                 />
-                <p className="text-grey text-xs mt-1">At least 6 characters</p>
+                {/* <p className="text-grey text-xs mt-1">At least 6 characters</p> */}
               </div>
-              <div className="flex mt-8 bg-slate-400 w-1/2 justify-center rounded-md">
+              <div className="flex mt-8 w-1/2 justify-center rounded-md bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg">
                 <button
-                  className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-full"
+                  className="text-white font-bold py-2 px-4 rounded-full"
                   type="submit"
                   onClick={(e) => handleLogin(e)}
                 >

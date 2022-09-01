@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import authHeader from "../../services/auth.header";
 
@@ -35,20 +36,22 @@ const AddOfferModal = ({ setAddOfferModal }) => {
             offerItems: [
               {
                 food: foodResponse.data,
-                quantity: 5
+                quantity: food.quantity,
               },
             ],
             date: new Date().toISOString().split("T")[0],
             expired: false,
           };
+
           OfferService.createNewOffer(newOffer).then(
             (resp) => {
-              console.log(resp);
+              window.location.reload();
+              toast.success("Offer created!");
             },
-            (err) => console.error(err)
+            (err) => toast.error("Error while creating offer")
           );
         },
-        (err) => console.error(err)
+        (err) => toast.error("Errow while creating food item")
       );
   };
 
@@ -57,6 +60,7 @@ const AddOfferModal = ({ setAddOfferModal }) => {
       className="flex min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
       id="modal-id"
     >
+      <ToastContainer />
       <div
         className="absolute bg-black opacity-80 inset-0 z-0"
         onClick={() => setAddOfferModal(false)}
@@ -83,7 +87,6 @@ const AddOfferModal = ({ setAddOfferModal }) => {
                   required: "Please enter food name",
                 })}
               />
-              
 
               <label className="text-gray-600 font-medium block mt-4">
                 Price
@@ -97,15 +100,15 @@ const AddOfferModal = ({ setAddOfferModal }) => {
                   required: "Please enter price",
                 })}
               />
-             
 
-              <label className='text-gray-600 font-medium block mt-4'>
+              <label className="text-gray-600 font-medium block mt-4">
                 Quantity
               </label>
               <input
                 className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
                 name="quantity"
                 type="number"
+                min="0"
                 placeholder="Quantity"
                 {...register("quantity", {
                   required: "Please enter quantity",
@@ -125,7 +128,7 @@ const AddOfferModal = ({ setAddOfferModal }) => {
                 <option value="ITALIAN">ITALIAN</option>
                 <option value="ASIAN">ASIAN</option>
               </select>
-              
+
               <button
                 className="mt-4 w-full bg-green-400 hover:bg-green-600 text-green-100 border py-3 px-6 font-semibold text-md rounded"
                 type="submit"
