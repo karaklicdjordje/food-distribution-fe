@@ -9,12 +9,14 @@ import RestaurantService from "../services/restaurant.service";
 import Subscription from "../components/ui/modals/Subscription";
 import Filter from "../components/home/filter/Filter";
 import RestaurantList from "../components/home/restaurantsList/RestaurantList";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 const Homepage = () => {
   let navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("token");
   const [restaurants, setRestaurants] = React.useState([]);
   const [subscriptionModal, setSubscriptionModal] = React.useState(false);
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     RestaurantService.getAllRestaurants().then((resp) => {
@@ -27,7 +29,7 @@ const Homepage = () => {
   };
 
   const subscribe = (restaurant) => {
-    RestaurantService.subscribeToRestaurant(restaurant.id, 1).then(
+    RestaurantService.subscribeToRestaurant(restaurant.id, currentUser.id).then(
       (resp) => {
         setSubscriptionModal(true);
 

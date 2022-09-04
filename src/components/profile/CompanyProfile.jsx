@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import OfferService from "../../services/offer.service";
 import UserService from "../../services/user.service";
+import OrdersList from "../order/OrdersList";
 
 const CompanyProfile = () => {
   const [offerItems, setOfferItems] = React.useState([]);
@@ -45,7 +46,7 @@ const CompanyProfile = () => {
           <hr />
           <div className="flex flex-col justify-start p-1 overflow-auto">
             {myOrders.length > 0 ? (
-              <Orders orders={myOrders} />
+              <OrdersList orders={myOrders} />
             ) : (
               <span>No orders</span>
             )}
@@ -80,26 +81,5 @@ const CompanyProfile = () => {
   );
 };
 
-const Orders = ({ orders }) => {
-  return orders.map((order, index) => (
-    <div
-      key={index}
-      className="flex flex-col rounded-md border-2 mb-2 p-2 bg-slate-200"
-    >
-      <span>Date: {order.orderDateTime.split("T")[0]}</span>
-      <span
-        className={`${
-          order.orderStatus === "ORDERED"
-            ? "bg-green-400 rounded"
-            : "bg-red-400 rounded"
-        }`}
-      >
-        Order status: {order.orderStatus}
-      </span>
-      <span>Number of items: {order.orderItems.length}</span>
-      <span>TOTAL: {order.totalPrice}</span>
-    </div>
-  ));
-};
 
 export default CompanyProfile;
