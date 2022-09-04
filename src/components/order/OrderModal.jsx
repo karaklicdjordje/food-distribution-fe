@@ -1,27 +1,30 @@
 import React from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { ReactComponent as XIcon } from "../../assets/XIcon.svg";
+import Button from "../ui/button/Button";
 
 import restaurantService from "../../services/restaurant.service";
 
-const OrderModal = ({ setOrderModal }) => {
-  const parsedOrder = JSON.parse(localStorage.getItem("selectedOffers"));
-  // console.log(parsedOrder);
+import "react-toastify/dist/ReactToastify.css";
 
+const OrderModal = ({ setOrderModal }) => {
+
+  const parsedOrder = JSON.parse(localStorage.getItem("selectedOffers"));
+  
   const handleOrder = () => {
     const orderItems = [];
     let orderDate;
     let restaurantId;
-    // console.log(parsedOrder);
     parsedOrder.map((item) => {
       orderItems.push({
         offerItemId: item.offerItems[0].id,
-        quantity: item.offerItems[0].quantity,
-        // orderId: 0,
+        quantity: 1,
         price: item.offerItems[0].food.price,
       });
 
       // orderDate = new Date(item.date).toISOString().split("T")[0];
-      orderDate = '2022-08-18T20:48:42.164Z';
+      // TODO
+      orderDate = "2022-08-18T20:48:42.164Z";
       restaurantId = item.restaurantId;
     });
 
@@ -30,17 +33,18 @@ const OrderModal = ({ setOrderModal }) => {
       orderItems: orderItems,
       orderDateTime: orderDate,
       orderStatus: "ORDERED",
-      totalPrice: 0,
       restaurantId: restaurantId,
     };
 
-    console.log(req);
     restaurantService.createOrder(req).then((resp) => {
       if (resp.status === 201) {
-        alert('Order created!')
+        alert("Order created!");
+        localStorage.removeItem('selectedOffers');
+        window.location.reload();
       }
     });
   };
+
 
   return (
     <div
@@ -64,9 +68,10 @@ const OrderModal = ({ setOrderModal }) => {
                 <span>Items: </span>
                 {offer.offerItems.map((item) => (
                   <div key={item.id + 50} className="flex flex-col">
-                    <span>Food type: {item.typeOfFood}</span>
-                    <span>Name: {item.name}</span>
-                    <span>price: {item.price}</span>
+                    <span>Food type: {item.food.typeOfFood}</span>
+                    <span>Name: {item.food.name}</span>
+                    <span>price: {item.food.price}</span>
+                    <span>Total quantity: {item.quantity}</span>
                   </div>
                 ))}
 

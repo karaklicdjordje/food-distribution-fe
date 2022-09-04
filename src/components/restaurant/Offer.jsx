@@ -9,8 +9,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { ROLES } from "../../const/const";
 
 const Offer = ({ offer, removeEnabled }) => {
+  const [quantity, setQuantity] = React.useState(0);
   const currentUser = useCurrentUser();
-  
+
   function handleDeleteOffer(offerId) {
     OfferService.deleteOffer(offerId).then(
       (resp) => {
@@ -38,15 +39,23 @@ const Offer = ({ offer, removeEnabled }) => {
   }
 
   const AddToOrder = () => {
-    toast("Added to order!", {
-      position: "top-left",
-      autoClose: 2500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    if (quantity === 0) {
+      toast.warn("Quantity needs to be bigger than 0!", {
+        position: "top-left",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return;
+    }
+
+    // handle quantity
+    // better way would be to make copy of object and than change quantity
+    offer.offerItems[0].quantity = quantity;
 
     let offers = localStorage.getItem("selectedOffers");
 
@@ -64,17 +73,71 @@ const Offer = ({ offer, removeEnabled }) => {
       parsedOffers.push(offer);
       localStorage.setItem("selectedOffers", JSON.stringify(parsedOffers));
     }
+
+    toast("Added to order!", {
+      position: "top-left",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const decreaseQnt = () => {
+    if (quantity === 0) {
+      return;
+    }
+
+    setQuantity((prevCount) => {
+      return --prevCount;
+    });
+  };
+
+  const increaseQnt = () => {
+    if (quantity === offer.offerItems[0].quantity) {
+      toast.warn("Quantity cannot be higher!", {
+        position: "top-left",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    setQuantity((prevCount) => {
+      return ++prevCount;
+    });
   };
 
   return (
     <div className="flex flex-col m-2 p-2 rounded-md border-2">
       <ToastContainer />
       {currentUser.role !== ROLES.ROLE_RESTAURANT && (
-          <div className="flex flex-row justify-between">
-            <span>Date: {offer.date}</span>
-            <ShoppingIcon className="cursor-pointer" onClick={AddToOrder} />
+        <div className="flex flex-row justify-between">
+          <span>Date: {offer.date}</span>
+          <div className="flex flex-row w-1/3 justify-between">
+            <button
+              className="w-10 border-2 bg-slate-500 font-bold rounded-md"
+              onClick={decreaseQnt}
+            >
+              -
+            </button>
+            <span>{quantity}</span>
+            <button
+              className="w-10 border-2 bg-slate-500 font-bold rounded-md"
+              onClick={increaseQnt}
+            >
+              +
+            </button>
           </div>
-        )}
+          <ShoppingIcon className="cursor-pointer" onClick={AddToOrder} />
+        </div>
+      )}
 
       <span>Expired: {offer.expired ? "Yes" : "No"}</span>
       <div className="mb-2">

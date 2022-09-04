@@ -20,25 +20,10 @@ function App() {
       <Router history={browserHistory}>
         <Navigation />
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<LoginUser />} />
           <Route index path="/registration" element={<RegisterUser />} />
           <Route path="/login" element={<LoginUser />} />
-          {/* <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <Homepage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/restaurant"
-            element={
-              <ProtectedRoute>
-                <Restaurant />
-              </ProtectedRoute>
-            }
-          /> */}
+          
           <Route path="/home" element={<Homepage />} />
           {/* TODO: Ovde uraditi da u urlu bude sa id-em restoran */}
           <Route exact path="/restaurant" element={<Restaurant />} />

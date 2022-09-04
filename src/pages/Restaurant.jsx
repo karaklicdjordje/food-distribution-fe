@@ -5,7 +5,7 @@ import OfferService from "../services/offer.service";
 import Offer from "../components/restaurant/Offer";
 import Slider from "../components/ui/slider/Slider";
 import OrderModal from "../components/order/OrderModal";
-import useCurrentUser from '../hooks/useCurrentUser';
+import useCurrentUser from "../hooks/useCurrentUser";
 import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -71,9 +71,11 @@ const Restaurant = () => {
             <hr />
             {offers.length > 0 ? (
               offers.map((offer) => {
-                return (
-                  <Offer key={offer.id} offer={offer} removeEnabled={false} />
-                );
+                if (offer.offerItems[0].quantity !== 0) {
+                  return (
+                    <Offer key={offer.id} offer={offer} removeEnabled={false} />
+                  );
+                }
               })
             ) : (
               <span>No offers yet!</span>
